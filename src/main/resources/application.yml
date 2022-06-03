@@ -1,4 +1,40 @@
+# this document is valid
+spring:
+  profiles:
+    active: "dev"
 server:
   port: 8080
   tomcat:
     max-swallow-size: -1
+---
+# 운영 profile
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+  datasource:
+    url: jdbc:mysql://192.168.55.148:3306/community?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Seoul&tinyInt1isBit=false
+    username:
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+---
+# 개발 profile
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+  datasource:
+    url: jdbc:mysql://192.168.55.148:3306/community?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Seoul&tinyInt1isBit=false
+    username:
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 100
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
