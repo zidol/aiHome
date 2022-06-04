@@ -1,15 +1,12 @@
 package kr.co.aihome.entity.author;
 
-import co.kr.nakdong.entity.board.Board;
-import co.kr.nakdong.entity.common.BaseEntity;
+import kr.co.aihome.entity.common.BaseEntity;
 import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -75,8 +72,8 @@ public class User extends BaseEntity implements UserDetails {
     @Setter
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user")
-    private List<Board> boards = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    private List<Board> boards = new ArrayList<>();
 
     @Override
     public String getUsername() {

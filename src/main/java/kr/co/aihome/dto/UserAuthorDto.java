@@ -49,7 +49,7 @@ public class UserAuthorDto {
 	
 	private LocalDateTime createdDate;
 
-	//TODO @QueryProjection
+	@QueryProjection
 	public UserAuthorDto(Long id, @NotNull @Size(min = 3, max = 50) String username, @NotNull String name,
                          @NotNull @Size(min = 3, max = 100) String password, @NotNull @Size(min = 3, max = 50) String email,
                          String dept, String position, String education, String officeNum, @NotNull String mobile, String createdBy,
