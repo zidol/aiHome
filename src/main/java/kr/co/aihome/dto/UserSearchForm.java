@@ -5,7 +5,6 @@ import lombok.Setter;
 
 /**
  * query dsl 사용시 where 절 조건에 들어갈 파라미터
- * @author sppartners
  *
  */
 @Getter

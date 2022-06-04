@@ -1,9 +1,11 @@
 package kr.co.aihome.exception;
 
-import co.kr.nakdong.dto.ErrorResponse;
-import co.kr.nakdong.dto.exception.customException.IdDuplicationException;
-import co.kr.nakdong.dto.exception.customException.PasswordDifferentException;
-import co.kr.nakdong.dto.exception.customException.UnauthorizedException;
+
+import kr.co.aihome.common.dto.Error;
+import kr.co.aihome.common.dto.ErrorResponse;
+import kr.co.aihome.exception.customException.IdDuplicationException;
+import kr.co.aihome.exception.customException.PasswordDifferentException;
+import kr.co.aihome.exception.customException.UnauthorizedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;

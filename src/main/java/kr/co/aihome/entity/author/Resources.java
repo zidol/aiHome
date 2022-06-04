@@ -1,6 +1,6 @@
 package kr.co.aihome.entity.author;
 
-import co.kr.nakdong.entity.common.BaseEntity;
+import kr.co.aihome.entity.common.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;

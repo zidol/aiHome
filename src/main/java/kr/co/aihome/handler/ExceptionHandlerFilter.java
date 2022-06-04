@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 
 /**
  * jwt 필터 에러 처리
- * @author sppartners
  *
  */
 @Slf4j

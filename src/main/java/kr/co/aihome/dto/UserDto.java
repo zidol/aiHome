@@ -10,7 +10,6 @@ import java.util.Set;
 
 /**
  * 회원 가입용
- * @author sppartners
  *
  */
 

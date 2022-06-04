@@ -51,7 +51,6 @@ public class UserService implements UserDetailsService {
     }
 
     /**
-     * @author sppartners
      * @param form
      * 
      * 유저 회원가입
@@ -138,7 +137,6 @@ public class UserService implements UserDetailsService {
 	}
     
     /**
-     * @author sppartners
      * @param form
      * 
      * 관리자 회원 등록

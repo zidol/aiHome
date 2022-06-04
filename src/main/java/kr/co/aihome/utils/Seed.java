@@ -10,8 +10,7 @@ import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 
 /**
- * 
- * @author sppartners
+ *
  * @since 2021.12.22
  * 암복호화 클래스
  * 

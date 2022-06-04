@@ -14,7 +14,7 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)  // 생성자를 다른 계층에서 함부로 생성하지 못하도록 막는다.
 @Builder
 @Entity
-@Table(name = "spp_authority")
+@Table(name = "authority")
 public class Authority implements GrantedAuthority {
 
 //    public static final String ROLE_ADMIN = "ROLE_ADMIN";
@@ -32,7 +32,6 @@ public class Authority implements GrantedAuthority {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@SequenceGenerator(name = "spp_authority_id_seq", sequenceName = "id", allocationSize = 1)
     private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
