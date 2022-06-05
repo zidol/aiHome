@@ -16,6 +16,7 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass // BaseEntity를 상속 받은 Entity들은 아래 필드를 컬럼으로 인식
 @Getter
 public class BaseEntity extends BaseTimeEntity {
+
     @CreatedBy
     @Column(updatable = false, length = 50)
     private String createdBy;
