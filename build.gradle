@@ -40,6 +40,9 @@ dependencies {
 //	implementation 'com.querydsl:querydsl-jpa'
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+	//
+	runtimeOnly 'com.h2database:h2'
 }
 
 tasks.named('test') {

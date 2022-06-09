@@ -38,7 +38,7 @@ public class User extends BaseEntity implements UserDetails {
     private String name;
 
 	@NotNull
-    @Column(length = 50)
+    @Column(length = 50, unique = true)
 	@Setter
     private String email;
 
@@ -48,21 +48,13 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
     
 	@Setter
-    private String dept;
+    private int age;
     
     @Setter
-    private String position;
+    private Gender gender;
     
     @Setter
-    private String education;
-    
-    @Setter
-    @Column(name = "office_num")
-    private String officeNum;
-    
-    @NotNull
-    @Setter
-    private String mobile;
+    private Double weight;
 
     @OneToMany(mappedBy = "user")
     @Setter

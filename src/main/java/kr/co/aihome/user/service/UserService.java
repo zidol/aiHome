@@ -18,7 +18,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -63,10 +65,9 @@ public class UserService implements UserDetailsService {
 				.username(form.getUsername())
 				.name(form.getName())
 				.email(form.getEmail())
-				.mobile(Seed.encrypt(form.getMobile()))
-				.dept(form.getDept())
-				.education(form.getEducation())
-				.officeNum(form.getOfficeNum())
+				.weight(form.getWeight())
+				.age(form.getAge())
+				.gender(form.getGender())
 				.password(passwordEncoder.encode(form.getPassword()))
 				.enabled(true).build();
 		
@@ -98,20 +99,6 @@ public class UserService implements UserDetailsService {
             }
         });
     }
-//
-//    public void removeAuthority(Long userId, String authority){
-//        userRepository.findById(userId).ifPresent(user->{
-//            if(user.getAuthorities()==null) return;
-//            Authority targetRole = new Authority(user.getUserId(), authority);
-//            if(user.getAuthorities().contains(targetRole)){
-//                user.setAuthorities(
-//                        user.getAuthorities().stream().filter(auth->!auth.equals(targetRole))
-//                                .collect(Collectors.toSet())
-//                );
-//                save(user);
-//            }
-//        });
-//    }
 
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
@@ -149,23 +136,21 @@ public class UserService implements UserDetailsService {
 				.username(form.getUsername())
 				.name(form.getName())
 				.email(form.getEmail())
-				.mobile(Seed.encrypt(form.getMobile()))
-				.dept(form.getDept())
-				.education(form.getEducation())
-				.officeNum(form.getOfficeNum())
-				.position(form.getPosition())
+				.age(form.getAge())
+				.gender(form.getGender())
+				.weight(form.getWeight())
 				.password(passwordEncoder.encode(form.getPassword()))
 				.enabled(true).build();
 		
 		User resultUser = userRepository.save(user);
 
-		String authorities =  form.getAuthorities();
-//		for (String author : authorities) {
-			Role role = roleRepository.findByAuthority(authorities);
+		List<String> authorities =  form.getAuthorities();
+		for (String author : authorities) {
+			Role role = roleRepository.findByAuthority(author);
 
 			Authority authority = Authority.builder().authority(role).user(resultUser).build();
 			authorityRepository.save(authority);
-//		}
+		}
     }
     
     @Transactional
@@ -177,24 +162,21 @@ public class UserService implements UserDetailsService {
 		if (!form.getPassword().equals("") && form.getPassword() != null) {
 			findUser.setPassword(passwordEncoder.encode(form.getPassword()));
 		}
-		findUser.setDept(form.getDept());
-		findUser.setPosition(form.getPosition());
-		findUser.setEducation(form.getEducation());
-		findUser.setOfficeNum(form.getOfficeNum());
-		findUser.setMobile(Seed.encrypt(form.getMobile()));
+		findUser.setAge(form.getAge());
+		findUser.setWeight(form.getWeight());
+		findUser.setGender(form.getGender());
 		
 		//기존 권한
 		authorityRepository.deleteByUser(findUser);
 		
-//		List<String> authorities = new ArrayList<String>();
-//		authorities = form.getAuthorities();
-		String authorities = form.getAuthorities();
+		List<String> authorities = new ArrayList<String>();
+		authorities = form.getAuthorities();
 		Authority authority = null;
-//		for (String addAuthor : authorities) {
-			Role role = roleRepository.findByAuthority(authorities);
+		for (String addAuthor : authorities) {
+			Role role = roleRepository.findByAuthority(addAuthor);
 			authority = Authority.builder().authority(role).user(findUser).build();
 			authorityRepository.save(authority);
-//		}
+		}
 		    	
     }
 
@@ -228,11 +210,9 @@ public class UserService implements UserDetailsService {
 		if (!form.getPassword().equals("") && form.getPassword() != null) {
 			findUser.setPassword(passwordEncoder.encode(form.getPassword()));
 		}
-		findUser.setDept(form.getDept());
-		findUser.setPosition(form.getPosition());
-		findUser.setEducation(form.getEducation());
-		findUser.setOfficeNum(form.getOfficeNum());
-		findUser.setMobile(form.getMobile());
+		findUser.setAge(form.getAge());
+		findUser.setWeight(form.getWeight());
+		findUser.setGender(form.getGender());
 
 	}
 }

@@ -17,14 +17,6 @@ import java.util.Objects;
 @Table(name = "authority")
 public class Authority implements GrantedAuthority {
 
-//    public static final String ROLE_ADMIN = "ROLE_ADMIN";
-//    public static final String ROLE_USER = "ROLE_USER";
-//    public static final String ROLE_STUDENT = "ROLE_STUDENT";
-//
-//    public static final Authority ADMIN_AUTHORITY = Authority.builder().authority(ROLE_ADMIN).build();
-//    public static final Authority USER_AUTHORITY = Authority.builder().authority(ROLE_USER).build();
-//    public static final Authority STUDENT_AUTHORITY = Authority.builder().authority(ROLE_STUDENT).build();
-
 	/**
 	 * 
 	 */
@@ -50,7 +42,7 @@ public class Authority implements GrantedAuthority {
     
     @Override
     public String getAuthority() {
-        return authority.getAuthority().toString();
+        return authority.getAuthority();
     }
     
 //    public Role getRole() {

@@ -119,20 +119,10 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 //        response.setHeader("refresh_token", refreshToken);
         
         //재발급 받은 refresh 토큰 DB에 저장
-        RefreshToken reToken = refreshTokenService.createRefreshToken(user.getUserId(), refreshToken);
+        refreshTokenService.createRefreshToken(user.getUserId(), refreshToken);
         response.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        
-        AES256Util aes256Util = new AES256Util();
 
-		String encodeRefTokenId = "";
-        try {
-        	encodeRefTokenId = aes256Util.aesEncode(Long.toString(reToken.getId()));
-		} catch (InvalidKeyException | UnsupportedEncodingException | NoSuchAlgorithmException | NoSuchPaddingException
-				| InvalidAlgorithmParameterException | IllegalBlockSizeException | BadPaddingException e) {
-			log.error("message : ", e);
-			e.printStackTrace();
-		}
-        Cookie cookie = new Cookie("ndrrtn", encodeRefTokenId);
+        Cookie cookie = new Cookie("ndrrtn", refreshToken);
         // expires in 7 days
         cookie.setMaxAge(7 * 24 * 60 * 60);	//쿠키의 유효기간 설정
 
@@ -157,10 +147,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         		.id(user.getUserId())
         		.username(user.getUsername())
                 .name(user.getName())
-//                .email(user.getEmail())
-//                .mobile(user.getMobile())
                 .authorities(user.getAuthorities())
-                .ssoId(idString)
                 .build();
 
         //access token

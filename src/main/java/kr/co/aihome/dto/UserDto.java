@@ -2,6 +2,7 @@ package kr.co.aihome.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import kr.co.aihome.entity.author.Authority;
+import kr.co.aihome.entity.author.Gender;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
@@ -38,19 +39,12 @@ public class UserDto {
 	@Size(min = 3, max = 50)
 	private String email;
 
-	private String dept;
+	private int age;
 
-	private String position;
+	private Gender gender;
 
-	private String education;
-
-	private String officeNum;
-
-	@NotNull
-	private String mobile;
+	private Double weight;
 
 	private Set<Authority> authorities;
-	
-	private String ssoId;
 
 }

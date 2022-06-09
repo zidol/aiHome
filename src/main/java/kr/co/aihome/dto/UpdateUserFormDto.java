@@ -1,10 +1,12 @@
 package kr.co.aihome.dto;
 
+import kr.co.aihome.entity.author.Gender;
 import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,19 +29,17 @@ public class UpdateUserFormDto {
     private String password;
     
     private String rePassword;
-    
-    private String dept;
-    
-    private String position;
-    
-    private String education;
-    
-    private String officeNum;
+
+    private int age;
+
+    private Gender gender;
+
+    private Double weight;
     
     @NotBlank(message = "전화번호는 필수 입력 값입니다.")
     private String mobile;
     
 //    @NotNull(message = "권한은 1개 이상 등록되어야 합니다(1)")
 //    @Size(min = 1, message = "권한은 1개 이상 등록되어야 합니다(2)")
-    private String authorities;
+    private List<String> authorities;
 }

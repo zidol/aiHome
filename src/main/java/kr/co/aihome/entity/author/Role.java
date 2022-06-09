@@ -15,9 +15,6 @@ import javax.persistence.Table;
 @Builder
 @Table(name = "roles")
 public class Role {
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private Integer id;
 
 	@Id
 	@Column(length = 20)

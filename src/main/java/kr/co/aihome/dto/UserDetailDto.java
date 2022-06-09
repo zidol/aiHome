@@ -52,11 +52,7 @@ public class UserDetailDto {
 		this.username = user.getUsername();
 		this.name = user.getName();
 		this.email = user.getEmail();
-		this.dept = user.getDept();
-		this.position = user.getPosition();
-		this.education = user.getEducation();
-		this.officeNum = user.getOfficeNum();
-		this.mobile = user.getMobile();
+
 		this.authorities = user.getAuthorities().stream()
 			.map(authority -> new AuthorityDto(authority.getAuthority())).collect(Collectors.<AuthorityDto>toList());
 	}

@@ -1,10 +1,12 @@
 package kr.co.aihome.dto;
 
+import kr.co.aihome.entity.author.Gender;
 import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,18 +32,13 @@ public class SignUpFormDto {
     
     @NotBlank(message = "확인 비밀번호는 필수 입력 값입니다.")
     private String rePassword;
+
+    private int age;
+
+    private Gender gender;
+
+    private Double weight;
     
-    private String dept;
-    
-    private String position;
-    
-    private String education;
-    
-    private String officeNum;
-    
-    @NotBlank(message = "전화번호는 필수 입력 값입니다.")
-    private String mobile;
-    
-    private String authorities;
+    private List<String> authorities;
 
 }

@@ -36,11 +36,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 						user.name,
 						user.password,
 						user.email,
-						user.dept,
-						user.position,
-						user.education,
-						user.officeNum,
-						user.mobile,
+						user.age,
+						user.gender,
+						user.weight,
 						user.createdBy,
 						user.createdDate))
 				.from(user)
