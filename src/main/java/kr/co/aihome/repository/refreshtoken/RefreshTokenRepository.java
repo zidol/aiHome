@@ -1,4 +1,4 @@
-package kr.co.aihome.user.repository;
+package kr.co.aihome.repository.refreshtoken;
 
 import kr.co.aihome.entity.author.RefreshToken;
 import kr.co.aihome.entity.author.User;

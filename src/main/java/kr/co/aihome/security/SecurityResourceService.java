@@ -2,8 +2,8 @@ package kr.co.aihome.security;
 
 import kr.co.aihome.entity.author.Resources;
 import kr.co.aihome.entity.author.RoleResources;
-import kr.co.aihome.user.repository.ResourcesRepository;
-import kr.co.aihome.user.repository.RoleResourcesRepository;
+import kr.co.aihome.repository.resources.ResourcesRepository;
+import kr.co.aihome.repository.role.RoleResourcesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;

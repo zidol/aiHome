@@ -4,7 +4,7 @@ import kr.co.aihome.handler.CustomAccessDeniedHandler;
 import kr.co.aihome.handler.ExceptionHandlerFilter;
 import kr.co.aihome.security.RefreshTokenService;
 import kr.co.aihome.security.SecurityResourceService;
-import kr.co.aihome.user.service.UserService;
+import kr.co.aihome.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.access.AccessDecisionManager;

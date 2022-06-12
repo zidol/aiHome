@@ -1,12 +1,12 @@
-package kr.co.aihome.user.service;
+package kr.co.aihome.service;
 
 import kr.co.aihome.dto.*;
 import kr.co.aihome.entity.author.Authority;
 import kr.co.aihome.entity.author.Role;
 import kr.co.aihome.entity.author.User;
-import kr.co.aihome.user.repository.AuthorityRepository;
-import kr.co.aihome.user.repository.RoleRepository;
-import kr.co.aihome.user.repository.UserRepository;
+import kr.co.aihome.repository.author.AuthorityRepository;
+import kr.co.aihome.repository.role.RoleRepository;
+import kr.co.aihome.repository.user.UserRepository;
 import kr.co.aihome.utils.Seed;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

@@ -1,4 +1,4 @@
-package kr.co.aihome.user.repository;
+package kr.co.aihome.repository.author;
 
 import kr.co.aihome.entity.author.Authority;
 import kr.co.aihome.entity.author.User;

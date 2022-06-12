@@ -1,7 +1,6 @@
 package kr.co.aihome.entity.author;
 
-import kr.co.aihome.user.repository.UserRepository;
-import org.assertj.core.api.Assertions;
+import kr.co.aihome.repository.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class UserTest {

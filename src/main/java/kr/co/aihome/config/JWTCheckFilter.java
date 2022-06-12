@@ -2,7 +2,7 @@ package kr.co.aihome.config;
 
 import com.auth0.jwt.exceptions.*;
 import kr.co.aihome.entity.author.User;
-import kr.co.aihome.user.service.UserService;
+import kr.co.aihome.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

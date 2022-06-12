@@ -1,4 +1,4 @@
-package kr.co.aihome.user.repository.impl;
+package kr.co.aihome.repository.impl;
 
 
 import com.querydsl.core.QueryResults;
@@ -7,7 +7,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.aihome.dto.QUserAuthorDto;
 import kr.co.aihome.dto.UserAuthorDto;
 import kr.co.aihome.dto.UserSearchForm;
-import kr.co.aihome.user.repository.UserRepositoryCustom;
+import kr.co.aihome.repository.user.UserRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

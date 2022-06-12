@@ -1,4 +1,4 @@
-package kr.co.aihome.user.repository;
+package kr.co.aihome.repository.user;
 
 import kr.co.aihome.dto.UserAuthorDto;
 import kr.co.aihome.dto.UserSearchForm;
