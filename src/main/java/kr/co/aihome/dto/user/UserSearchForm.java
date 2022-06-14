@@ -1,4 +1,4 @@
-package kr.co.aihome.dto;
+package kr.co.aihome.dto.user;
 
 import lombok.Getter;
 import lombok.Setter;

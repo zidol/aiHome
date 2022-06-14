@@ -1,4 +1,4 @@
-package kr.co.aihome.dto;
+package kr.co.aihome.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.querydsl.core.annotations.QueryProjection;

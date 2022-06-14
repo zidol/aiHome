@@ -1,10 +1,12 @@
-package kr.co.aihome.dto;
+package kr.co.aihome.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import kr.co.aihome.entity.author.Authority;
 import kr.co.aihome.entity.author.Gender;
 import lombok.*;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
@@ -23,26 +25,30 @@ public class UserDto {
 
 	private Long id;
 
-	@NotNull
+	@NotBlank
 	@Size(min = 3, max = 50)
 	private String username;
 
-	@NotNull
+	@NotBlank
 	private String name;
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-	@NotNull
+	@NotBlank
 	@Size(min = 3, max = 100)
 	private String password;
 
-	@NotNull
+	@NotBlank
 	@Size(min = 3, max = 50)
 	private String email;
 
+	@Min(value = 1)
 	private int age;
 
+	@NotNull
 	private Gender gender;
 
+	@NotNull
+	@Min(value = 1)
 	private Double weight;
 
 	private Set<Authority> authorities;

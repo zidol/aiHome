@@ -18,6 +18,27 @@ class UserTest {
     @Test
     @DisplayName("유저 생성 테스트")
     @Transactional
+    void userSaveErrorTest() throws Exception {
+        User user = User.builder()
+                .username(" ")
+                .age(0)
+                .name(null)
+                .email("aa")
+                .gender(null)
+                .password("")
+                .weight(0.0)
+                .build();
+        User savedUser = userRepository.save(user);
+//
+//        User findUser = userRepository.findById(savedUser.getUserId()).orElseThrow(() -> new Exception("회원이 존재 하지 않습니다."));
+//
+//        assertThat(findUser.getUserId()).isEqualTo(savedUser.getUserId());
+
+
+    }
+    @Test
+    @DisplayName("유저 생성 테스트")
+    @Transactional
     void userSaveTest() throws Exception {
         User user = User.builder()
                 .username("zidolee")

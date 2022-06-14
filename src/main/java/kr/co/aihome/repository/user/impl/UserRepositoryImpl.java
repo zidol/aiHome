@@ -1,12 +1,12 @@
-package kr.co.aihome.repository.impl;
+package kr.co.aihome.repository.user.impl;
 
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import kr.co.aihome.dto.QUserAuthorDto;
-import kr.co.aihome.dto.UserAuthorDto;
-import kr.co.aihome.dto.UserSearchForm;
+import kr.co.aihome.dto.user.QUserAuthorDto;
+import kr.co.aihome.dto.user.UserAuthorDto;
+import kr.co.aihome.dto.user.UserSearchForm;
 import kr.co.aihome.repository.user.UserRepositoryCustom;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;

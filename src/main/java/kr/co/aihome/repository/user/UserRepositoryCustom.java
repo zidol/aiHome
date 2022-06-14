@@ -1,7 +1,7 @@
 package kr.co.aihome.repository.user;
 
-import kr.co.aihome.dto.UserAuthorDto;
-import kr.co.aihome.dto.UserSearchForm;
+import kr.co.aihome.dto.user.UserAuthorDto;
+import kr.co.aihome.dto.user.UserSearchForm;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

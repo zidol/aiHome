@@ -1,6 +1,6 @@
 package kr.co.aihome.service;
 
-import kr.co.aihome.dto.*;
+import kr.co.aihome.dto.user.*;
 import kr.co.aihome.entity.author.Authority;
 import kr.co.aihome.entity.author.Role;
 import kr.co.aihome.entity.author.User;
@@ -185,10 +185,10 @@ public class UserService implements UserDetailsService {
 		User findUser = userRepository.findById(id).orElseThrow(() -> new Exception("찾으신 결과가 없습니다."));
 		
 		UserDetailDto userDto = new UserDetailDto(findUser);
-		
-		if(userDto.getMobile() != null) {
-			userDto.setMobile(Seed.decrypt(userDto.getMobile()));
-		}
+
+//		if(userDto.getMobile() != null) {
+//			userDto.setMobile(Seed.decrypt(userDto.getMobile()));
+//		}
 		return userDto;
 	}
 	

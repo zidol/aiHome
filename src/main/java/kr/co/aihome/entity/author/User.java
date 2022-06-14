@@ -5,6 +5,9 @@ import lombok.*;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,32 +31,37 @@ public class User extends BaseEntity implements UserDetails {
     private Long userId;
 	
 	//계정
-	@NotNull
+	@NotBlank
 	@Column(unique = true)
 	private String username;
 
 	//이름
-	@NotNull
+	@NotBlank
 	@Setter
     private String name;
 
-	@NotNull
+	@NotBlank
+    @Email
     @Column(length = 50, unique = true)
 	@Setter
     private String email;
 
-	@NotNull
+	@NotBlank
     @Column(length = 255)
 	@Setter
     private String password;
     
 	@Setter
+    @Min(value = 1)
     private int age;
     
     @Setter
+    @NotNull
     private Gender gender;
     
     @Setter
+    @NotNull
+    @Min(value = 1)
     private Double weight;
 
     @OneToMany(mappedBy = "user")
