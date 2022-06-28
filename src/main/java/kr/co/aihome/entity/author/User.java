@@ -57,6 +57,7 @@ public class User extends BaseEntity implements UserDetails {
     
     @Setter
     @NotNull
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     
     @Setter
