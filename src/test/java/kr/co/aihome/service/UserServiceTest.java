@@ -1,19 +1,23 @@
 package kr.co.aihome.service;
 
 import kr.co.aihome.dto.user.SignUpFormDto;
-import kr.co.aihome.entity.author.Authority;
-import kr.co.aihome.entity.author.Gender;
-import kr.co.aihome.entity.author.Role;
-import kr.co.aihome.entity.author.User;
+import kr.co.aihome.entity.author.*;
+import kr.co.aihome.exception.customException.NotFoundException;
 import kr.co.aihome.repository.author.AuthorityRepository;
 import kr.co.aihome.repository.role.RoleRepository;
 import kr.co.aihome.repository.user.UserRepository;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -66,6 +70,14 @@ class UserServiceTest {
         Authority authority = Authority.builder().authority(role).user(resultUser).build();
 
         authorityRepository.save(authority);
-        //TODO 회원 도메인에서 권한 등록 로직 짜기
+        User user1 = userRepository.findById(resultUser.getUserId()).orElseThrow(() -> new NotFoundException("찾을수 없습니다."));
+
+        assertThat(user1.getUserId()).isEqualTo(resultUser.getUserId());
+        assertThat(user1.getUsername()).isEqualTo(resultUser.getUsername());
+
+        Set<Authority> authorities = user1.getAuthorities();
+
+        authorities.forEach(a -> assertThat(a.getAuthority()).contains("ROLE_USER"));
+        //TODO ROLE Enum 타입으로 변경해보기
     }
 }
