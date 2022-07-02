@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,9 +37,7 @@ class UserServiceTest {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Test
-    @DisplayName("회원가입")
-    void signupTest() {
+    private User getUser() {
         Role role = Role.builder()
                 .authority("ROLE_USER")
                 .description("사용자")
@@ -70,6 +69,13 @@ class UserServiceTest {
         Authority authority = Authority.builder().authority(role).user(resultUser).build();
 
         authorityRepository.save(authority);
+        return resultUser;
+    }
+    @Test
+    @DisplayName("회원가입")
+    void signupTest() {
+        User resultUser = getUser();
+
         User user1 = userRepository.findById(resultUser.getUserId()).orElseThrow(() -> new NotFoundException("찾을수 없습니다."));
 
         assertThat(user1.getUserId()).isEqualTo(resultUser.getUserId());
@@ -80,4 +86,19 @@ class UserServiceTest {
         authorities.forEach(a -> assertThat(a.getAuthority()).contains("ROLE_USER"));
         //TODO ROLE Enum 타입으로 변경해보기
     }
+
+    @Test
+    @Transactional
+    @DisplayName("회원 탈퇴 테스트")
+    void secessionUser() {
+        User user = getUser();
+
+        user.setEnabled(false);
+
+        assertThrows(NotFoundException.class, () -> {
+            userRepository.findById(user.getUserId()).orElseThrow(() -> new NotFoundException("찾을수 없는 회원입니다."));
+        });
+    }
+
+
 }
