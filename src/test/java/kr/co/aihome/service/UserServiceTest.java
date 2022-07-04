@@ -1,6 +1,7 @@
 package kr.co.aihome.service;
 
 import kr.co.aihome.dto.user.SignUpFormDto;
+import kr.co.aihome.dto.user.UpdateUserFormDto;
 import kr.co.aihome.entity.author.*;
 import kr.co.aihome.exception.customException.NotFoundException;
 import kr.co.aihome.repository.author.AuthorityRepository;
@@ -14,9 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -99,6 +98,58 @@ class UserServiceTest {
             userRepository.findById(user.getUserId()).orElseThrow(() -> new NotFoundException("찾을수 없는 회원입니다."));
         });
     }
+
+    @Test
+    @Transactional
+    @DisplayName("회원정보 수정")
+    void changeUser() {
+        //given 유저 생성, 수정 정보
+        User user = getUser();
+
+        User findUser = userRepository.findById(user.getUserId()).orElseThrow(() -> new NotFoundException("찾으신 결과가 없습니다."));
+
+        String[] chaneAuthority = {"ROLE_ADMIN", "ROLE_USER"};
+        UpdateUserFormDto form = UpdateUserFormDto.builder()
+                .name("안지순")
+                .email("bbb@bbb.com")
+                .password("1235")
+                .weight(62.0)
+                .age(45)
+                .gender(Gender.FEMALE)
+                .authorities(Arrays.asList(chaneAuthority))
+                .build();
+
+        findUser.setName(form.getName());
+        findUser.setEmail(form.getEmail());
+        String encodePassword = passwordEncoder.encode(form.getPassword());
+        if (!form.getPassword().equals("") && form.getPassword() != null) {
+            findUser.setPassword(encodePassword);
+        }
+        findUser.setAge(form.getAge());
+        findUser.setWeight(form.getWeight());
+        findUser.setGender(form.getGender());
+
+        //기존 권한
+        authorityRepository.deleteByUser(findUser);
+
+        List<String> authorities = new ArrayList<String>();
+        authorities = form.getAuthorities();
+        Authority authority = null;
+        for (String addAuthor : authorities) {
+            Role role = roleRepository.findByAuthority(addAuthor);
+            authority = Authority.builder().authority(role).user(findUser).build();
+            authorityRepository.save(authority);
+        }
+
+        //then
+        assertThat(findUser.getName()).isEqualTo("안지순");
+        assertThat(findUser.getEmail()).isEqualTo("bbb@bbb.com");
+        assertThat(findUser.getWeight()).isEqualTo(62.0);
+        assertThat(findUser.getAge()).isEqualTo(45);
+        assertThat(findUser.getGender()).isEqualTo(Gender.FEMALE);
+        assertTrue(passwordEncoder.matches("1235",encodePassword));
+    }
+
 
 
 }

@@ -4,6 +4,7 @@ import kr.co.aihome.dto.user.*;
 import kr.co.aihome.entity.author.Authority;
 import kr.co.aihome.entity.author.Role;
 import kr.co.aihome.entity.author.User;
+import kr.co.aihome.exception.customException.NotFoundException;
 import kr.co.aihome.repository.author.AuthorityRepository;
 import kr.co.aihome.repository.role.RoleRepository;
 import kr.co.aihome.repository.user.UserRepository;
@@ -155,7 +156,7 @@ public class UserService implements UserDetailsService {
     
     @Transactional
     public void updateUser(Long id, UpdateUserFormDto form) throws Exception {
-    	User findUser = userRepository.findById(id).orElseThrow(() -> new Exception("찾으신 결과가 없습니다."));
+    	User findUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException("찾으신 결과가 없습니다."));
     	
 		findUser.setName(form.getName());
 		findUser.setEmail(form.getEmail());
@@ -203,7 +204,7 @@ public class UserService implements UserDetailsService {
 	
 	@Transactional
 	public void updateMy(Long id, UpdateUserFormDto form) throws Exception {
-		User findUser = userRepository.findById(id).orElseThrow(() -> new Exception("찾으신 결과가 없습니다."));
+		User findUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException("찾으신 결과가 없습니다."));
 
 		findUser.setName(form.getName());
 		findUser.setEmail(form.getEmail());
