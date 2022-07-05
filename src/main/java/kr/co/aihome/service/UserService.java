@@ -197,9 +197,8 @@ public class UserService implements UserDetailsService {
 	public void deleteUser(Long id) {
 		userRepository.findById(id).ifPresent(user -> {
 			user.setEnabled(false);
-			
 		});
-		
+
 	}
 	
 	@Transactional

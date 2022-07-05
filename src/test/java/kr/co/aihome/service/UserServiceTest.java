@@ -150,6 +150,24 @@ class UserServiceTest {
         assertTrue(passwordEncoder.matches("1235",encodePassword));
     }
 
+    @Test
+    @DisplayName("유저 탈퇴 테스트")
+    @Transactional
+    void deleteUserTest() {
+        //given
+        User user = getUser();
+
+        //when
+        userRepository.findById(user.getUserId()).ifPresent(findUser -> {
+            findUser.setEnabled(false);
+        });
+
+        //then
+        assertThrows(NotFoundException.class, () -> {
+            userRepository.findById(user.getUserId()).orElseThrow(() -> new NotFoundException("찾으신 결과가 없습니다."));
+        });
+    }
+
 
 
 }
