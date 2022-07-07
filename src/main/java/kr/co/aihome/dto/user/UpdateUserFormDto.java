@@ -1,5 +1,6 @@
 package kr.co.aihome.dto.user;
 
+import kr.co.aihome.entity.author.ERole;
 import kr.co.aihome.entity.author.Gender;
 import lombok.*;
 
@@ -41,5 +42,5 @@ public class UpdateUserFormDto {
     
 //    @NotNull(message = "권한은 1개 이상 등록되어야 합니다(1)")
 //    @Size(min = 1, message = "권한은 1개 이상 등록되어야 합니다(2)")
-    private List<String> authorities;
+    private List<ERole> authorities;
 }

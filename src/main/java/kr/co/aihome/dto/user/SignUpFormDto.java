@@ -1,5 +1,6 @@
 package kr.co.aihome.dto.user;
 
+import kr.co.aihome.entity.author.ERole;
 import kr.co.aihome.entity.author.Gender;
 import lombok.*;
 
@@ -39,6 +40,6 @@ public class SignUpFormDto {
 
     private Double weight;
     
-    private List<String> authorities;
+    private List<ERole> authorities;
 
 }

@@ -2,6 +2,7 @@ package kr.co.aihome.service;
 
 import kr.co.aihome.dto.user.*;
 import kr.co.aihome.entity.author.Authority;
+import kr.co.aihome.entity.author.ERole;
 import kr.co.aihome.entity.author.Role;
 import kr.co.aihome.entity.author.User;
 import kr.co.aihome.exception.customException.NotFoundException;
@@ -60,7 +61,7 @@ public class UserService implements UserDetailsService {
      */
     @Transactional
     public void signUp(SignUpFormDto form) {
-    	Role role = roleRepository.findByAuthority("ROLE_WAIT");
+    	Role role = roleRepository.findByAuthority(ERole.ROLE_USER);
 
 		final User user = User.builder()
 				.username(form.getUsername())
@@ -87,15 +88,15 @@ public class UserService implements UserDetailsService {
         			.authority(authority)
         			.build();
             if(user.getAuthorities() == null){
-                HashSet<Authority> authorities = new HashSet<>();
+				List<Authority> authorities = new ArrayList<>();
                 authorities.add(newRole);
-                user.setAuthorities(authorities);
+//                user.setAuthorities(authorities);
                 save(user);
             }else if(!user.getAuthorities().contains(newRole)){
-                HashSet<Authority> authorities = new HashSet<>();
+				List<Authority> authorities = new ArrayList<>();
                 authorities.addAll(user.getAuthorities());
                 authorities.add(newRole);
-                user.setAuthorities(authorities);
+//                user.setAuthorities(authorities);
                 save(user);
             }
         });
@@ -145,8 +146,8 @@ public class UserService implements UserDetailsService {
 		
 		User resultUser = userRepository.save(user);
 
-		List<String> authorities =  form.getAuthorities();
-		for (String author : authorities) {
+		List<ERole> authorities =  form.getAuthorities();
+		for (ERole author : authorities) {
 			Role role = roleRepository.findByAuthority(author);
 
 			Authority authority = Authority.builder().authority(role).user(resultUser).build();
@@ -170,10 +171,10 @@ public class UserService implements UserDetailsService {
 		//기존 권한
 		authorityRepository.deleteByUser(findUser);
 		
-		List<String> authorities = new ArrayList<String>();
+		List<ERole> authorities = new ArrayList<ERole>();
 		authorities = form.getAuthorities();
 		Authority authority = null;
-		for (String addAuthor : authorities) {
+		for (ERole addAuthor : authorities) {
 			Role role = roleRepository.findByAuthority(addAuthor);
 			authority = Authority.builder().authority(role).user(findUser).build();
 			authorityRepository.save(authority);

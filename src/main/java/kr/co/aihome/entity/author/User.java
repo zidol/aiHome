@@ -9,8 +9,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -66,8 +66,7 @@ public class User extends BaseEntity implements UserDetails {
     private Double weight;
 
     @OneToMany(mappedBy = "user")
-    @Setter
-    private Set<Authority> authorities = new HashSet();
+    private List<Authority> authorities = new ArrayList<>();
 
     @NotNull
     @Setter

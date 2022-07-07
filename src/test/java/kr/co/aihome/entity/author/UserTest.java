@@ -1,6 +1,8 @@
 package kr.co.aihome.entity.author;
 
 import kr.co.aihome.exception.customException.NotFoundException;
+import kr.co.aihome.repository.author.AuthorityRepository;
+import kr.co.aihome.repository.role.RoleRepository;
 import kr.co.aihome.repository.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,31 +20,22 @@ class UserTest {
     @Autowired
     UserRepository userRepository;
 
-    @Test
-    @DisplayName("유저 생성 테스트")
-    @Transactional
-    void userSaveErrorTest() throws Exception {
-        User user = User.builder()
-                .username(" ")
-                .age(0)
-                .name(null)
-                .email("aa")
-                .gender(null)
-                .password("")
-                .weight(0.0)
-                .build();
-        User savedUser = userRepository.save(user);
-//
-//        User findUser = userRepository.findById(savedUser.getUserId()).orElseThrow(() -> new Exception("회원이 존재 하지 않습니다."));
-//
-//        assertThat(findUser.getUserId()).isEqualTo(savedUser.getUserId());
+    @Autowired
+    RoleRepository roleRepository;
 
+    @Autowired
+    AuthorityRepository authorityRepository;
 
-    }
     @Test
     @DisplayName("유저 생성 테스트")
     @Transactional
     void userSaveTest() throws Exception {
+        Role role = Role.builder()
+                .authority(ERole.ROLE_USER)
+                .description("사용자")
+                .build();
+        roleRepository.save(role);
+
         User user = User.builder()
                 .username("zidolee")
                 .age(20)
@@ -51,8 +44,13 @@ class UserTest {
                 .gender(Gender.MALE)
                 .password("1234")
                 .weight(70.0)
+                .enabled(true)
                 .build();
         User savedUser = userRepository.save(user);
+
+        Authority authority = Authority.builder().authority(role).user(savedUser).build();
+
+        authorityRepository.save(authority);
 
         User findUser = userRepository.findById(savedUser.getUserId()).orElseThrow(() -> new Exception("회원이 존재 하지 않습니다."));
 

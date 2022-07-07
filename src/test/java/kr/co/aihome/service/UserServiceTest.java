@@ -13,8 +13,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.*;
@@ -36,9 +38,13 @@ class UserServiceTest {
     @Autowired
     PasswordEncoder passwordEncoder;
 
+    //추가된 부분
+    @Autowired
+    private EntityManager em;
+
     private User getUser() {
         Role role = Role.builder()
-                .authority("ROLE_USER")
+                .authority(ERole.ROLE_USER)
                 .description("사용자")
                 .build();
         roleRepository.save(role);
@@ -53,7 +59,7 @@ class UserServiceTest {
                 .gender(Gender.MALE)
                 .build();
 
-        final User user = User.builder()
+        User user = User.builder()
                 .username(form.getUsername())
                 .name(form.getName())
                 .email(form.getEmail())
@@ -62,28 +68,28 @@ class UserServiceTest {
                 .gender(form.getGender())
                 .password(passwordEncoder.encode(form.getPassword()))
                 .enabled(true).build();
-
         User resultUser = userRepository.save(user);
 
-        Authority authority = Authority.builder().authority(role).user(resultUser).build();
-
+        Authority authority = Authority.builder().authority(role).user(user).build();
         authorityRepository.save(authority);
+
         return resultUser;
     }
     @Test
     @DisplayName("회원가입")
+    @Transactional
     void signupTest() {
         User resultUser = getUser();
 
+        em.clear();
+
         User user1 = userRepository.findById(resultUser.getUserId()).orElseThrow(() -> new NotFoundException("찾을수 없습니다."));
+
+        List<Authority> authorities = user1.getAuthorities();
+        authorities.forEach(a -> assertThat(a.getAuthority()).contains("ROLE_USER"));
 
         assertThat(user1.getUserId()).isEqualTo(resultUser.getUserId());
         assertThat(user1.getUsername()).isEqualTo(resultUser.getUsername());
-
-        Set<Authority> authorities = user1.getAuthorities();
-
-        authorities.forEach(a -> assertThat(a.getAuthority()).contains("ROLE_USER"));
-        //TODO ROLE Enum 타입으로 변경해보기
     }
 
     @Test
@@ -108,7 +114,7 @@ class UserServiceTest {
 
         User findUser = userRepository.findById(user.getUserId()).orElseThrow(() -> new NotFoundException("찾으신 결과가 없습니다."));
 
-        String[] chaneAuthority = {"ROLE_ADMIN", "ROLE_USER"};
+        ERole[] chaneAuthority = {ERole.ROLE_ADMIN, ERole.ROLE_USER};
         UpdateUserFormDto form = UpdateUserFormDto.builder()
                 .name("안지순")
                 .email("bbb@bbb.com")
@@ -132,14 +138,20 @@ class UserServiceTest {
         //기존 권한
         authorityRepository.deleteByUser(findUser);
 
-        List<String> authorities = new ArrayList<String>();
+        List<ERole> authorities = new ArrayList<ERole>();
         authorities = form.getAuthorities();
         Authority authority = null;
-        for (String addAuthor : authorities) {
+
+        for (ERole addAuthor : authorities) {
             Role role = roleRepository.findByAuthority(addAuthor);
             authority = Authority.builder().authority(role).user(findUser).build();
             authorityRepository.save(authority);
         }
+//        for (String addAuthor : authorities) {
+//            Role role = roleRepository.findByAuthority(addAuthor);
+//            authority = Authority.builder().authority(role).user(findUser).build();
+//            authorityRepository.save(authority);
+//        }
 
         //then
         assertThat(findUser.getName()).isEqualTo("안지순");
