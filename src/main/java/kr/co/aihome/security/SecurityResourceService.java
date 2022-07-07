@@ -39,7 +39,7 @@ public class SecurityResourceService {
             Long resourceId = resource.getId();   // for문 내부에서 도는 요소. resourceId.
             roleResources.forEach(roleResource ->{  // 이중 For문 시작!
                 if(roleResource.getResources().getId() == resourceId)   // Resource의 아이디와 roleResource에서 뽑은 아이디가 같다면
-                    configAttributeList.add(new SecurityConfig(roleResource.getRole().getAuthority()));  // 권한정보 이름 더하기!
+                    configAttributeList.add(new SecurityConfig(roleResource.getRole().getAuthority().toString()));  // 권한정보 이름 더하기!
             });
             result.put(new AntPathRequestMatcher(resource.getResourceName(), resource.getHttpMethod()),configAttributeList);  // 해시로 {이름:[권한들]} 매핑해주기
         });
