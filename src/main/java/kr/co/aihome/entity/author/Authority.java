@@ -33,8 +33,9 @@ public class Authority implements GrantedAuthority {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "authority")
+    @Enumerated(EnumType.STRING)
     private Role authority;
-    
+
     public void addUser(User user) {
     	this.user = user;
     	user.getAuthorities().add(this);
@@ -42,7 +43,7 @@ public class Authority implements GrantedAuthority {
     
     @Override
     public String getAuthority() {
-        return authority.getAuthority();
+        return authority.getAuthority().toString();
     }
     
 //    public Role getRole() {

@@ -2,10 +2,7 @@ package kr.co.aihome.entity.author;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -18,7 +15,8 @@ public class Role {
 
 	@Id
 	@Column(length = 20)
-	private String authority;
+	@Enumerated(EnumType.STRING)
+	private ERole authority;
 	
 	@Column
 	private String description;

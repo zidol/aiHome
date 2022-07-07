@@ -1,5 +1,6 @@
 package kr.co.aihome.dto.role;
 
+import kr.co.aihome.entity.author.ERole;
 import lombok.*;
 
 @AllArgsConstructor
@@ -9,7 +10,7 @@ import lombok.*;
 @Setter
 public class RoleDto {
 	
-	private String authority;
+	private ERole authority;
 	
 	private String description;
 }
