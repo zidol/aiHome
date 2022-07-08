@@ -33,4 +33,9 @@ public class RoleResources implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "authority")
     private Role role;
+
+    public void addResources(Resources resources) {
+        this.resources = resources;
+        resources.getRoleResources().add(this);
+    }
 }
