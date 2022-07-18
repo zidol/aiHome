@@ -36,6 +36,8 @@ dependencies {
 	implementation("mysql:mysql-connector-java")
 	implementation("com.auth0:java-jwt:3.16.0")  // oauth0
 
+//	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+
 	//querydsl 추가
 //	implementation 'com.querydsl:querydsl-jpa'
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"

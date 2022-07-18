@@ -20,14 +20,25 @@ spring:
 ---
 # 개발 profile
 spring:
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          google:
+#            clientId: 832462011042-612kpdahms3qesibjr313978828a6ba2.apps.googleusercontent.com
+#            clientSecret: 3lEKDUjUe7VC67okjJf4Fnil
+#        provider:
+#          naver:
+#          kakao:
   config:
     activate:
       on-profile: "dev"
   datasource:
-    url: jdbc:h2:tcp://localhost/~/jpashop
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://58.124.126.211:3306/community?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Seoul&tinyInt1isBit=false
+#    url: jdbc:mysql://192.168.55.148:3306/community?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Seoul&tinyInt1isBit=false
+    username: zidol
+    password: qwer1234!@#$
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: create
