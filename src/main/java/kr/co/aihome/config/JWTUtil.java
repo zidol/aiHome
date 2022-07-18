@@ -107,7 +107,6 @@ public class JWTUtil {
     }
 
     private static DecodedJWT getDecodedJWT(String token) {
-        DecodedJWT verify = JWT.require(algorithm(SECRET)).build().verify(token);
-        return verify;
+        return JWT.require(algorithm(SECRET)).build().verify(token);
     }
 }

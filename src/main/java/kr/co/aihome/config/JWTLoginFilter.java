@@ -130,9 +130,7 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 		String idString = "";
         try {
         	idString = AriaEncodeUtil.ariaEncrypt(user.getUsername());
-		} catch (InvalidKeyException e) {
-			log.error("message : ", e);
-		} catch (UnsupportedEncodingException e) {
+		} catch (InvalidKeyException | UnsupportedEncodingException e) {
 			log.error("message : ", e);
 		}
 
@@ -176,11 +174,8 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
     private boolean isAjax(HttpServletRequest request) {
 
     	//정보에 담겨 있는 값과 같은지 아닌지 판별해야하는데 서버에서 미리 약속을 정해줄수 있다. 
-        if ( "XMLHttpRequest".equals(request.getHeader("X-Requested-With")) ){
-        	return true;
-        }
+        return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
         
-        //위에 값과 일치하지 않으면 
-        return false;
+        //위에 값과 일치하지 않으면
     }
 }
