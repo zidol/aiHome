@@ -38,6 +38,7 @@ public class User extends BaseEntity implements UserDetails {
 	//이름
 	@NotBlank
 	@Setter
+    @Column(length = 50)
     private String name;
 
 	@NotBlank
@@ -54,10 +55,11 @@ public class User extends BaseEntity implements UserDetails {
 	@Setter
     @Min(value = 1)
     private int age;
-    
+
     @Setter
     @NotNull
     @Enumerated(EnumType.STRING)
+    @Column(length = 50)
     private Gender gender;
     
     @Setter
