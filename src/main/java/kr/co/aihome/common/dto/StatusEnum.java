@@ -7,10 +7,11 @@ public enum StatusEnum {
     UNAUTHORIZED(401, "UNAUTHORIZED"),
     FORBIDDEN(403, "FORBIDDEN"),
     NOT_FOUND(404, "NOT_FOUND"),
-    INTERNAL_SERER_ERROR(500, "INTERNAL_SERVER_ERROR");
+    INTERNAL_SERER_ERROR(500, "INTERNAL_SERVER_ERROR"),
+    ;
 
-    int statusCode;
-    String code;
+    final int statusCode;
+    final String code;
 
     StatusEnum(int statusCode, String code) {
         this.statusCode = statusCode;
