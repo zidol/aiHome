@@ -11,6 +11,7 @@ import kr.co.aihome.repository.role.RoleRepository;
 import kr.co.aihome.repository.user.UserRepository;
 import kr.co.aihome.utils.Seed;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -130,7 +132,7 @@ public class UserService implements UserDetailsService {
      * 
      * 관리자 회원 등록
      */
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void insertUser(SignUpFormDto form) {
 //    	Role role = roleRepository.findByAuthority(form.getAuthority());
 
@@ -154,8 +156,8 @@ public class UserService implements UserDetailsService {
 			authorityRepository.save(authority);
 		}
     }
-    
-    @Transactional
+
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void updateUser(Long id, UpdateUserFormDto form) throws Exception {
     	User findUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException("찾으신 결과가 없습니다."));
     	
@@ -184,8 +186,8 @@ public class UserService implements UserDetailsService {
 
 	public UserDetailDto findUserById(Long id) throws Exception {
 	
-		User findUser = userRepository.findById(id).orElseThrow(() -> new Exception("찾으신 결과가 없습니다."));
-		
+		User findUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException("찾으신 결과가 없습니다."));
+
 		UserDetailDto userDto = new UserDetailDto(findUser);
 
 //		if(userDto.getMobile() != null) {
@@ -201,8 +203,8 @@ public class UserService implements UserDetailsService {
 		});
 
 	}
-	
-	@Transactional
+
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void updateMy(Long id, UpdateUserFormDto form) throws Exception {
 		User findUser = userRepository.findById(id).orElseThrow(() -> new NotFoundException("찾으신 결과가 없습니다."));
 
