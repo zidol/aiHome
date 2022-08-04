@@ -10,6 +10,7 @@ import kr.co.aihome.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
@@ -39,6 +40,7 @@ public class RefreshTokenService {
   public Algorithm algorithm(String secret) {
     return Algorithm.HMAC512(secret);
   }
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
   public RefreshToken createRefreshToken(Long userId, String token) {
     RefreshToken refreshToken = new RefreshToken();
 
@@ -64,7 +66,7 @@ public class RefreshTokenService {
     return token;
   }
 
-  @Transactional
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
   public int deleteByUserId(String username) {
     return refreshTokenRepository.deleteByUser(userRepository.findByUsername(username).get());
   }
