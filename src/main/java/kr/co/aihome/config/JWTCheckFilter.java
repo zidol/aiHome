@@ -3,6 +3,8 @@ package kr.co.aihome.config;
 import com.auth0.jwt.exceptions.*;
 import kr.co.aihome.entity.author.User;
 import kr.co.aihome.service.UserService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -16,15 +18,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@RequiredArgsConstructor
+@Slf4j
 public class JWTCheckFilter extends OncePerRequestFilter {
+	private  final UserService userService;
 
-	private static final Logger logger = LoggerFactory.getLogger(JWTCheckFilter.class);
-	private UserService userService;
-
-	public JWTCheckFilter(UserService userService) {
-//        super(authenticationManager);
-		this.userService = userService;
-	}
+//	public JWTCheckFilter(UserService userService) {
+////        super(authenticationManager);
+//		this.userService = userService;
+//	}
 
 	// 토큰에 대한 검사
 //    @Override
